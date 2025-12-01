@@ -1,0 +1,73 @@
+stages:
+  - build
+  - deploy
+  - notify
+
+variables:
+  GIT_STRATEGY: clone
+  GO_VERSION: "1.23.0"
+  HOST: $HOST
+  USERNAME: $USERNAME
+  PORT: $PORT
+  SSH_KEY: $SSH_KEY
+  IMAGE_NAME: "turaan_uz"
+
+build_and_test:
+  stage: build
+  image: golang:${GO_VERSION}
+  script:
+    - echo "Checking out code"
+    - go mod download
+    - echo "Running tests"
+    - go test ./... -v
+  only:
+    - main
+  artifacts:
+    expire_in: 1 hour
+    reports:
+      junit: junit.xml
+
+deploy:
+  stage: deploy
+  image: appleboy/drone-ssh
+  only:
+    - main
+  needs:
+    - build_and_test
+  script:
+    - echo "Deploying to server"
+    - ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
+    - ssh -i $SSH_KEY -p $PORT $USERNAME@$HOST << EOF
+      update_service() {
+      local service_path=\$1
+      local image_name=\$2
+      
+      cd \$service_path || { echo "Directory \$service_path not found."; exit 1; }
+      git pull origin main
+      if [ \$? -ne 0 ]; then
+      echo "Conflict occurred during git pull in \$service_path. Please resolve manually."
+      exit 1
+      fi
+      
+      sudo docker-compose down
+      if sudo docker image ls | grep -q "\$image_name"; then
+      sudo docker image rm \$image_name || true
+      fi
+      sudo docker-compose up --build -d
+      }
+      
+      update_service "~/projects/hadiya.uz/turaan_uz/" "$IMAGE_NAME"
+      EOF
+  environment:
+    name: production
+
+notify:
+  stage: notify
+  script:
+    - if [ "$CI_JOB_STATUS" == "success" ]; then
+      echo "Deployment succeeded!";
+      else
+      echo "Deployment failed. Please check logs.";
+      fi
+  only:
+    - main
