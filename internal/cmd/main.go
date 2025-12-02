@@ -3,11 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
+	"os/signal"
 	_ "intern/api/openapi"
 	"intern/internal/configs"
 	"intern/internal/controller/handlers"
-	"os"
-	"os/signal"
 	"sync"
 )
 
