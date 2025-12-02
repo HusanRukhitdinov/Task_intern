@@ -2,12 +2,13 @@ package token
 
 import (
 	"fmt"
-	"github.com/golang-jwt/jwt"
-	"github.com/spf13/cast"
 	"intern/internal/configs"
 	"intern/internal/core/domain"
 	"intern/pkg/logger"
 	"time"
+
+	"github.com/golang-jwt/jwt"
+	"github.com/spf13/cast"
 )
 
 func GenerateJWTToken(arg *domain.TokenRequest, log logger.ILogger) (*domain.TokenResponse, error) {
@@ -47,4 +48,19 @@ func GenerateJWTToken(arg *domain.TokenRequest, log logger.ILogger) (*domain.Tok
 		Success:            true,
 	}, nil
 
+}
+
+func ExtractClaims(tokenStr string) (jwt.MapClaims, error) {
+	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
+		return []byte(configs.SignKey), nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		return claims, nil
+	}
+
+	return nil, fmt.Errorf("invalid token")
 }

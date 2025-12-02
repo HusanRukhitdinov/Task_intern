@@ -5,11 +5,12 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"intern/pkg/logger"
+	"net/http"
+	"time"
+
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
-	"net/http"
-	"intern/pkg/logger"
-	"time"
 )
 
 var (
@@ -27,6 +28,7 @@ var (
 	errorInternal          = errors.New("internal error")
 	errorWrongCredentials  = errors.New("wrong credentials")
 	errorAccessDenied      = errors.New("access denied")
+	ErrPermissionDenied    = errors.New("permission denied")
 	emailErr               = errors.New("email is not valid")
 	timeErr                = errors.New("time parse error")
 	errNotFoundID          = errors.New("no rows in result set")
@@ -100,47 +102,3 @@ func (h *Handler) hashingPassword(password []byte) (string, error) {
 
 	return string(hashedPassword), nil
 }
-
-//func (h *Handler) getClaimFromJWTToken(c *gin.Context) (jwt.MapClaims, error) {
-//	var (
-//		ErrUnauthorized = errors.New("unauthorized")
-//		authorization   domain.AuthorizationModel
-//		claims          jwt.MapClaims
-//		err             error
-//	)
-//
-//	authorization.Token = c.GetHeader("Authorization")
-//
-//	if c.Request.Header.Get("Authorization") == "" {
-//		h.handleError(c, errorWrongCredentials)
-//
-//		return nil, ErrUnauthorized
-//	}
-//
-//	claims, err = jwtToken.ExtractClaims(authorization.Token)
-//	if err != nil {
-//		h.handleError(c, errorWrongCredentials)
-//
-//		return nil, ErrUnauthorized
-//	}
-//
-//	return claims, nil
-//}
-
-//func (h *Handler) MiddlewareJWTToken() gin.HandlerFunc {
-//	return func(c *gin.Context) {
-//		claims, err := h.getClaimFromJWTToken(c)
-//
-//		if err != nil {
-//			c.Abort()
-//			return
-//		}
-//
-//		c.Set("user", domain.UserInfo{
-//			ID:   claims["id"].(string),
-//			Role: claims["role"].(string),
-//		})
-//
-//		c.Next()
-//	}
-//}

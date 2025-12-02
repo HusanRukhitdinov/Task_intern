@@ -18,10 +18,10 @@ proto-gen:
 migrate:
 	migrate -source file://migrations -database postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}?sslmode=disable up
 
-DB_URL := "postgres://postgres:1111@localhost:5432/intern?sslmode=disable"
+DB_URL := "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}?sslmode=disable"
 
 migrate-up:
-	migrate -path ./migrations -database $(DB_URL) -verbose up
+	migrate -path db/migrations -database $(DB_URL) -verbose up
 
 migrate-down:
 	migrate -path db/migrations -database $(DB_URL) -verbose down

@@ -15,367 +15,24 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/answer": {
+        "/api/login": {
             "post": {
                 "security": [
                     {
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Answer Create",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Answer"
-                ],
-                "summary": "Answer Create",
-                "parameters": [
-                    {
-                        "description": "Answer Request",
-                        "name": "order",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/domain.AnswerParams"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseSuccess"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/answer/{id}": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    },
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "get answer",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "tags": [
-                    "Answer"
-                ],
-                "summary": "Get answer",
+                "summary": "Login (user or sysuser)",
                 "parameters": [
                     {
-                        "type": "string",
-                        "example": "UUID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.Answer"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Answer Update",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Answer"
-                ],
-                "summary": "Answer Update",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Answer ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Answer",
-                        "name": "answer",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/domain.AnswerParams"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseSuccess"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Answer Delete",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Answer"
-                ],
-                "summary": "Answer Delete",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "UUID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseSuccess"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/answers/{id}": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "get answers",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Answer"
-                ],
-                "summary": "Get answers",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "UUID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ManyAnswer"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/check/question": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "intern Check Question",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "intern Check Question"
-                ],
-                "summary": "intern Check Question",
-                "parameters": [
-                    {
-                        "description": "intern ",
-                        "name": "intern",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/domain.CheckOneQuestionParams"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.CheckOneQuestion"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/login/user": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "get user   by id",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "User"
-                ],
-                "summary": "Get user  by id",
-                "parameters": [
-                    {
-                        "description": "User Request",
-                        "name": "user",
+                        "description": "Login request",
+                        "name": "login",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -396,14 +53,8 @@ const docTemplate = `{
                             "$ref": "#/definitions/domain.ResponseError"
                         }
                     },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
+                    "401": {
+                        "description": "Unauthorized",
                         "schema": {
                             "$ref": "#/definitions/domain.ResponseError"
                         }
@@ -411,29 +62,32 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/question": {
+        "/api/otp": {
             "post": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
-                "description": "Question Create",
+                "description": "Send a one-time password to the given email",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "Question"
+                    "OTP"
                 ],
-                "summary": "Question Create",
+                "summary": "Send OTP",
                 "parameters": [
                     {
-                        "description": "Question Request",
-                        "name": "question",
+                        "description": "OTP request",
+                        "name": "otp",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.QuestionParams"
+                            "$ref": "#/definitions/domain.OTPCreateRequest"
                         }
                     }
                 ],
@@ -441,17 +95,11 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/domain.ResponseSuccess"
+                            "$ref": "#/definitions/domain.OTPResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/domain.ResponseError"
                         }
@@ -465,231 +113,32 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/question/{id}": {
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Question Update",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Question"
-                ],
-                "summary": "Question Update",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "UUID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Question",
-                        "name": "question",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/domain.QuestionParams"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseSuccess"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Question Delete",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Question"
-                ],
-                "summary": "Question Delete",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "UUID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseSuccess"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/questions/{id}": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "get questions",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Question"
-                ],
-                "summary": "Get questions",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "UUID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "points",
-                        "in": "query"
-                    },
-                    {
-                        "enum": [
-                            "multiple_choice",
-                            "true_false",
-                            "short_answer"
-                        ],
-                        "type": "string",
-                        "x-enum-varnames": [
-                            "QuestionTypeEnumMultipleChoice",
-                            "QuestionTypeEnumTrueFalse",
-                            "QuestionTypeEnumShortAnswer"
-                        ],
-                        "name": "question_type",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ManySelectManyQuestionsinternID"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/intern": {
+        "/api/otp/confirm": {
             "post": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
-                "description": "intern Create",
+                "description": "Validate the OTP code and receive a confirmation token",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "intern"
+                    "OTP"
                 ],
-                "summary": "intern Create",
+                "summary": "Confirm OTP",
                 "parameters": [
                     {
-                        "description": "intern Request",
-                        "name": "intern",
+                        "description": "OTP confirm request",
+                        "name": "otp",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.internParams"
+                            "$ref": "#/definitions/domain.OTPConfirmRequest"
                         }
                     }
                 ],
@@ -697,7 +146,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/domain.ResponseSuccess"
+                            "$ref": "#/definitions/domain.OTPConfirmationTokenResponse"
                         }
                     },
                     "400": {
@@ -706,8 +155,8 @@ const docTemplate = `{
                             "$ref": "#/definitions/domain.ResponseError"
                         }
                     },
-                    "404": {
-                        "description": "Not Found",
+                    "401": {
+                        "description": "Unauthorized",
                         "schema": {
                             "$ref": "#/definitions/domain.ResponseError"
                         }
@@ -721,371 +170,14 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/intern/{id}": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "get intern",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "intern"
-                ],
-                "summary": "Get intern",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "UUID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.intern"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "intern Update",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "intern"
-                ],
-                "summary": "intern Update",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "UUID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "intern",
-                        "name": "intern",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/domain.internParams"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseSuccess"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "intern Delete",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "intern"
-                ],
-                "summary": "intern Delete",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "UUID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseSuccess"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/intern/{id}/completed/{intern_id}": {
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "intern Completed",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "intern Result"
-                ],
-                "summary": "intern Completed",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "UUID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "intern ID",
-                        "name": "intern_id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseSuccess"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/intern/{id}/difficulty": {
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "intern Update",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "intern"
-                ],
-                "summary": "intern Update",
-                "parameters": [
-                    {
-                        "enum": [
-                            "easy",
-                            "medium",
-                            "hard"
-                        ],
-                        "type": "string",
-                        "x-enum-varnames": [
-                            "DifficultyEnumEasy",
-                            "DifficultyEnumMedium",
-                            "DifficultyEnumHard"
-                        ],
-                        "name": "difficult",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "UUID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseSuccess"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/intern/{id}/result": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "intern Get Result",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "intern Result"
-                ],
-                "summary": "intern Get Result",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "UUID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ManyGetinternResultByUserAndintern"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/intern/{id}/start": {
+        "/api/role": {
             "post": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
-                "description": "intern Start",
+                "description": "Create a new role",
                 "consumes": [
                     "application/json"
                 ],
@@ -1093,16 +185,18 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "intern Result"
+                    "Role"
                 ],
-                "summary": "intern Start",
+                "summary": "Create Role",
                 "parameters": [
                     {
-                        "type": "string",
-                        "example": "UUID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
+                        "description": "Role Request",
+                        "name": "role",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.RoleCreateRequest"
+                        }
                     }
                 ],
                 "responses": {
@@ -1118,12 +212,6 @@ const docTemplate = `{
                             "$ref": "#/definitions/domain.ResponseError"
                         }
                     },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
@@ -1133,180 +221,14 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/internzes": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "get internzes",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "intern"
-                ],
-                "summary": "Get internzes",
-                "parameters": [
-                    {
-                        "enum": [
-                            "easy",
-                            "medium",
-                            "hard"
-                        ],
-                        "type": "string",
-                        "x-enum-varnames": [
-                            "DifficultyEnumEasy",
-                            "DifficultyEnumMedium",
-                            "DifficultyEnumHard"
-                        ],
-                        "name": "difficult",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "search",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.Manyinternzes"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/register/user": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "User Create",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "User"
-                ],
-                "summary": "User Create",
-                "parameters": [
-                    {
-                        "description": "User Request",
-                        "name": "user",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/domain.RegisterRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.TokenResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/user": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "get user  by id",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "User"
-                ],
-                "summary": "Get user  by id",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.SelectOneUser"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    }
-                }
-            },
+        "/api/role/{id}": {
             "put": {
                 "security": [
                     {
                         "BearerAuth": []
                     }
                 ],
-                "description": "User Update",
+                "description": "Update an existing role's name",
                 "consumes": [
                     "application/json"
                 ],
@@ -1314,17 +236,24 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "Role"
                 ],
-                "summary": "User Update",
+                "summary": "Update Role",
                 "parameters": [
                     {
-                        "description": "User Request",
-                        "name": "user",
+                        "type": "string",
+                        "description": "Role ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Role Request",
+                        "name": "role",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.UserParams"
+                            "$ref": "#/definitions/domain.RoleCreateRequest"
                         }
                     }
                 ],
@@ -1332,7 +261,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
+                            "$ref": "#/definitions/domain.ResponseSuccess"
                         }
                     },
                     "400": {
@@ -1356,48 +285,30 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/user/{id}": {
-            "delete": {
+        "/api/roles": {
+            "get": {
                 "security": [
                     {
                         "BearerAuth": []
                     }
                 ],
-                "description": "User Delete",
-                "consumes": [
-                    "application/json"
-                ],
+                "description": "Get all active roles",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "Role"
                 ],
-                "summary": "User Delete",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "UUID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
+                "summary": "List Roles",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/domain.RoleListResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.ResponseError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/domain.ResponseError"
                         }
@@ -1411,14 +322,13 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/users": {
-            "get": {
+        "/api/signup": {
+            "post": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
-                "description": "get all admins",
                 "consumes": [
                     "application/json"
                 ],
@@ -1426,31 +336,25 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "Auth"
                 ],
-                "summary": "Get all admins",
+                "summary": "Signup (after OTP confirmation)",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "search",
-                        "in": "query"
+                        "description": "Signup request",
+                        "name": "signup",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.SignupRequest"
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/domain.SelectManyUsers"
+                            "$ref": "#/definitions/domain.SignupResponse"
                         }
                     },
                     "400": {
@@ -1459,8 +363,65 @@ const docTemplate = `{
                             "$ref": "#/definitions/domain.ResponseError"
                         }
                     },
-                    "404": {
-                        "description": "Not Found",
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/domain.ResponseError"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/domain.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sysuser": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create a new system user with roles",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Sysuser"
+                ],
+                "summary": "Create Sysuser",
+                "parameters": [
+                    {
+                        "description": "Sysuser Request",
+                        "name": "sysuser",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.SysuserCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.SysuserCreateResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/domain.ResponseError"
+                        }
+                    },
+                    "409": {
+                        "description": "Sysuser already exists or role not found",
                         "schema": {
                             "$ref": "#/definitions/domain.ResponseError"
                         }
@@ -1476,400 +437,69 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "domain.Answer": {
-            "type": "object",
-            "properties": {
-                "created_at": {
-                    "type": "string"
-                },
-                "is_correct": {
-                    "type": "boolean"
-                },
-                "question": {
-                    "$ref": "#/definitions/domain.QuestionInfo"
-                },
-                "solution_ru": {
-                    "type": "string"
-                },
-                "solution_uz": {
-                    "type": "string"
-                },
-                "text_ru": {
-                    "type": "string"
-                },
-                "text_uz": {
-                    "type": "string"
-                },
-                "updated_at": {
-                    "type": "string"
-                }
-            }
-        },
-        "domain.AnswerInfo": {
-            "type": "object",
-            "properties": {
-                "created_at": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "is_correct": {
-                    "type": "boolean"
-                },
-                "solution_ru": {
-                    "type": "string"
-                },
-                "solution_uz": {
-                    "type": "string"
-                },
-                "text_ru": {
-                    "type": "string"
-                },
-                "text_uz": {
-                    "type": "string"
-                },
-                "updated_at": {
-                    "type": "string"
-                }
-            }
-        },
-        "domain.AnswerObj": {
-            "type": "object",
-            "properties": {
-                "text_ru": {
-                    "type": "string"
-                },
-                "text_uz": {
-                    "type": "string"
-                }
-            }
-        },
-        "domain.AnswerParams": {
-            "type": "object",
-            "properties": {
-                "is_correct": {
-                    "type": "boolean"
-                },
-                "question_id": {
-                    "type": "string"
-                },
-                "solution_ru": {
-                    "type": "string"
-                },
-                "solution_uz": {
-                    "type": "string"
-                },
-                "text_ru": {
-                    "type": "string"
-                },
-                "text_uz": {
-                    "type": "string"
-                }
-            }
-        },
-        "domain.CheckOneQuestion": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "is_correct": {
-                    "type": "boolean"
-                },
-                "solution_ru": {
-                    "type": "string"
-                },
-                "solution_uz": {
-                    "type": "string"
-                }
-            }
-        },
-        "domain.CheckOneQuestionParams": {
-            "type": "object",
-            "properties": {
-                "answer_id": {
-                    "type": "string"
-                },
-                "question_id": {
-                    "type": "string"
-                },
-                "user_input": {
-                    "type": "string"
-                }
-            }
-        },
-        "domain.DifficultyEnum": {
-            "type": "string",
-            "enum": [
-                "easy",
-                "medium",
-                "hard"
-            ],
-            "x-enum-varnames": [
-                "DifficultyEnumEasy",
-                "DifficultyEnumMedium",
-                "DifficultyEnumHard"
-            ]
-        },
-        "domain.GetinternResultByUserAndintern": {
-            "type": "object",
-            "properties": {
-                "finished_at": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "started_at": {
-                    "type": "string"
-                },
-                "status": {
-                    "$ref": "#/definitions/domain.NullinternStatusEnum"
-                },
-                "total_points": {
-                    "type": "integer"
-                },
-                "total_score": {
-                    "type": "integer"
-                }
-            }
-        },
         "domain.LoginRequest": {
             "type": "object",
+            "required": [
+                "password",
+                "user_type"
+            ],
             "properties": {
                 "email": {
                     "type": "string"
                 },
-                "hash_password": {
-                    "type": "string"
-                }
-            }
-        },
-        "domain.ManyAnswer": {
-            "type": "object",
-            "properties": {
-                "answers": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/domain.AnswerInfo"
-                    }
-                },
-                "count": {
-                    "type": "integer"
-                }
-            }
-        },
-        "domain.ManyGetinternResultByUserAndintern": {
-            "type": "object",
-            "properties": {
-                "count": {
-                    "type": "integer"
-                },
-                "internzes_result": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/domain.GetinternResultByUserAndintern"
-                    }
-                }
-            }
-        },
-        "domain.Manyinternzes": {
-            "type": "object",
-            "properties": {
-                "count": {
-                    "type": "integer"
-                },
-                "internzes": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/domain.intern"
-                    }
-                }
-            }
-        },
-        "domain.ManySelectManyQuestionsinternID": {
-            "type": "object",
-            "properties": {
-                "count": {
-                    "type": "integer"
-                },
-                "questions": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/domain.SelectManyQuestionsinternID"
-                    }
-                }
-            }
-        },
-        "domain.NullDifficultyEnum": {
-            "type": "object",
-            "properties": {
-                "difficulty_enum": {
-                    "$ref": "#/definitions/domain.DifficultyEnum"
-                },
-                "valid": {
-                    "description": "Valid is true if DifficultyEnum is not NULL",
-                    "type": "boolean"
-                }
-            }
-        },
-        "domain.NullQuestionTypeEnum": {
-            "type": "object",
-            "properties": {
-                "question_type_enum": {
-                    "$ref": "#/definitions/domain.QuestionTypeEnum"
-                },
-                "valid": {
-                    "description": "Valid is true if QuestionTypeEnum is not NULL",
-                    "type": "boolean"
-                }
-            }
-        },
-        "domain.NullinternStatusEnum": {
-            "type": "object",
-            "properties": {
-                "intern_status_enum": {
-                    "$ref": "#/definitions/domain.internStatusEnum"
-                },
-                "valid": {
-                    "description": "Valid is true if internStatusEnum is not NULL",
-                    "type": "boolean"
-                }
-            }
-        },
-        "domain.QuestionInfo": {
-            "type": "object",
-            "properties": {
-                "points": {
-                    "type": "integer"
-                },
-                "question_type": {
+                "password": {
                     "type": "string"
                 },
-                "tex_ru": {
+                "phone": {
                     "type": "string"
                 },
-                "text_uz": {
-                    "type": "string"
+                "user_type": {
+                    "type": "string",
+                    "enum": [
+                        "user",
+                        "sysuser"
+                    ]
                 }
             }
         },
-        "domain.QuestionParams": {
+        "domain.OTPConfirmRequest": {
             "type": "object",
-            "properties": {
-                "points": {
-                    "type": "integer"
-                },
-                "question_type": {
-                    "$ref": "#/definitions/domain.QuestionTypeEnum"
-                },
-                "intern_id": {
-                    "type": "string"
-                },
-                "text_ru": {
-                    "type": "string"
-                },
-                "text_uz": {
-                    "type": "string"
-                }
-            }
-        },
-        "domain.QuestionTypeEnum": {
-            "type": "string",
-            "enum": [
-                "multiple_choice",
-                "true_false",
-                "short_answer"
+            "required": [
+                "code",
+                "otp_id"
             ],
-            "x-enum-varnames": [
-                "QuestionTypeEnumMultipleChoice",
-                "QuestionTypeEnumTrueFalse",
-                "QuestionTypeEnumShortAnswer"
-            ]
-        },
-        "domain.intern": {
-            "type": "object",
             "properties": {
-                "category_ru": {
+                "code": {
                     "type": "string"
                 },
-                "category_uz": {
-                    "type": "string"
-                },
-                "created_at": {
-                    "type": "string"
-                },
-                "description_ru": {
-                    "type": "string"
-                },
-                "description_uz": {
-                    "type": "string"
-                },
-                "difficulty": {
-                    "$ref": "#/definitions/domain.NullDifficultyEnum"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "is_active": {
-                    "type": "boolean"
-                },
-                "title_ru": {
-                    "type": "string"
-                },
-                "title_uz": {
-                    "type": "string"
-                },
-                "updated_at": {
+                "otp_id": {
                     "type": "string"
                 }
             }
         },
-        "domain.internParams": {
+        "domain.OTPConfirmationTokenResponse": {
             "type": "object",
             "properties": {
-                "category_ru": {
-                    "type": "string"
-                },
-                "category_uz": {
-                    "type": "string"
-                },
-                "description_ru": {
-                    "type": "string"
-                },
-                "description_uz": {
-                    "type": "string"
-                },
-                "difficulty": {
-                    "$ref": "#/definitions/domain.DifficultyEnum"
-                },
-                "title_ru": {
-                    "type": "string"
-                },
-                "title_uz": {
+                "token": {
                     "type": "string"
                 }
             }
         },
-        "domain.internStatusEnum": {
-            "type": "string",
-            "enum": [
-                "in_progress",
-                "completed"
+        "domain.OTPCreateRequest": {
+            "type": "object",
+            "required": [
+                "email"
             ],
-            "x-enum-varnames": [
-                "internStatusEnumInProgress",
-                "internStatusEnumCompleted"
-            ]
-        },
-        "domain.RegisterRequest": {
-            "type": "object",
             "properties": {
                 "email": {
                     "type": "string"
-                },
-                "hash_password": {
+                }
+            }
+        },
+        "domain.OTPResponse": {
+            "type": "object",
+            "properties": {
+                "otp_id": {
                     "type": "string"
                 }
             }
@@ -1877,7 +507,7 @@ const docTemplate = `{
         "domain.ResponseError": {
             "type": "object",
             "properties": {
-                "error": {
+                "message": {
                     "type": "string"
                 },
                 "status": {
@@ -1888,64 +518,41 @@ const docTemplate = `{
         "domain.ResponseSuccess": {
             "type": "object",
             "properties": {
-                "data": {
-                    "type": "string"
-                },
+                "data": {},
                 "status": {
                     "type": "integer"
                 }
             }
         },
-        "domain.SelectManyQuestionsinternID": {
+        "domain.RoleCreateRequest": {
             "type": "object",
+            "required": [
+                "name"
+            ],
             "properties": {
-                "answers": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/domain.AnswerObj"
-                    }
-                },
-                "id": {
-                    "type": "string"
-                },
-                "points": {
-                    "type": "integer"
-                },
-                "question_type": {
-                    "$ref": "#/definitions/domain.NullQuestionTypeEnum"
-                },
-                "intern_id": {
-                    "type": "string"
-                },
-                "text_ru": {
-                    "type": "string"
-                },
-                "text_uz": {
+                "name": {
                     "type": "string"
                 }
             }
         },
-        "domain.SelectManyUsers": {
+        "domain.RoleListResponse": {
             "type": "object",
             "properties": {
                 "count": {
                     "type": "integer"
                 },
-                "users": {
+                "roles": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/domain.SelectOneUser"
+                        "$ref": "#/definitions/domain.RoleResponse"
                     }
                 }
             }
         },
-        "domain.SelectOneUser": {
+        "domain.RoleResponse": {
             "type": "object",
             "properties": {
                 "created_at": {
-                    "type": "string"
-                },
-                "email": {
                     "type": "string"
                 },
                 "id": {
@@ -1954,7 +561,75 @@ const docTemplate = `{
                 "name": {
                     "type": "string"
                 },
-                "updated_at": {
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "domain.SignupRequest": {
+            "type": "object",
+            "required": [
+                "email",
+                "name",
+                "otp_confirmation_token",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "otp_confirmation_token": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string",
+                    "minLength": 6
+                }
+            }
+        },
+        "domain.SignupResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "domain.SysuserCreateRequest": {
+            "type": "object",
+            "required": [
+                "name",
+                "password",
+                "phone",
+                "roles"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string",
+                    "minLength": 6
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "roles": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "domain.SysuserCreateResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
                     "type": "string"
                 }
             }
@@ -1976,17 +651,6 @@ const docTemplate = `{
                 },
                 "success": {
                     "type": "boolean"
-                }
-            }
-        },
-        "domain.UserParams": {
-            "type": "object",
-            "properties": {
-                "email": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
                 }
             }
         }

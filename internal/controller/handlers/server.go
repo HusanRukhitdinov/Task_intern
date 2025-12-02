@@ -6,6 +6,7 @@ import (
 	configs2 "intern/internal/configs"
 	"intern/internal/core/repository"
 	"intern/internal/core/services"
+	"intern/pkg/email"
 	"intern/pkg/logger"
 
 	"github.com/gin-contrib/cors"
@@ -23,15 +24,15 @@ type Handler struct {
 	engine   *gin.Engine
 	services *services.Service
 	log      logger.ILogger
-	cnf      configs2.Config
+	cfg      configs2.Config
 }
 
-func NewHandler(engine *gin.Engine, services *services.Service, log logger.ILogger, cnf configs2.Config) *Handler {
+func NewHandler(engine *gin.Engine, services *services.Service, log logger.ILogger, cfg configs2.Config) *Handler {
 	return &Handler{
 		engine:   engine,
 		services: services,
 		log:      log,
-		cnf:      cnf,
+		cfg:      cfg,
 	}
 }
 
@@ -66,7 +67,17 @@ func NewServer(cfg configs2.Config) Server {
 
 	dbTx, _ := repository.New(context.Background(), cfg, log)
 
-	services1 := services.NewService(dbTx, log)
+	// Initialize email sender
+	emailSender := email.NewEmailSender(email.EmailConfig{
+		SMTPHost:     cfg.SMTPHost,
+		SMTPPort:     cfg.SMTPPort,
+		SMTPUsername: cfg.SMTPUsername,
+		SMTPPassword: cfg.SMTPPassword,
+		FromEmail:    cfg.FromEmail,
+		FromName:     cfg.FromName,
+	})
+
+	services1 := services.NewService(dbTx, log, emailSender)
 
 	handler := NewHandler(engine, services1, log, cfg)
 	setUpApi(handler)
@@ -87,16 +98,16 @@ func (h *Handler) Run() {
 	ginSwagger.WrapHandler(swaggerFiles.Handler,
 		ginSwagger.URL(fmt.Sprintf(
 			"%s/%d/swagger/docs.json",
-			h.cnf.HTTHost,
-			h.cnf.HTTPPort,
+			h.cfg.HTTHost,
+			h.cfg.HTTPPort,
 		)),
 		ginSwagger.DefaultModelsExpandDepth(-1),
 	)
 
-	h.log.Info("server is running: ", logger.Any("address", fmt.Sprintf("%s:%d", h.cnf.HTTHost, h.cnf.HTTPPort)))
-	h.log.Info("swagger: ", logger.Any("url", fmt.Sprintf("http://%s:%d/swagger/index.html", h.cnf.HTTHost, h.cnf.HTTPPort)))
+	h.log.Info("server is running: ", logger.Any("address", fmt.Sprintf("%s:%d", h.cfg.HTTHost, h.cfg.HTTPPort)))
+	h.log.Info("swagger: ", logger.Any("url", fmt.Sprintf("http://%s:%d/swagger/index.html", h.cfg.HTTHost, h.cfg.HTTPPort)))
 
-	if err := h.engine.Run(fmt.Sprintf(":%d", h.cnf.HTTPPort)); err != nil {
+	if err := h.engine.Run(fmt.Sprintf(":%d", h.cfg.HTTPPort)); err != nil {
 		h.log.Error("failed to run server", logger.Error(err))
 	}
 

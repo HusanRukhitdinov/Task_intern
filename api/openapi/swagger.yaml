@@ -1,320 +1,133 @@
 definitions:
-  domain.Answer:
-    properties:
-      created_at:
-        type: string
-      is_correct:
-        type: boolean
-      question:
-        $ref: '#/definitions/domain.QuestionInfo'
-      solution_ru:
-        type: string
-      solution_uz:
-        type: string
-      text_ru:
-        type: string
-      text_uz:
-        type: string
-      updated_at:
-        type: string
-    type: object
-  domain.AnswerInfo:
-    properties:
-      created_at:
-        type: string
-      id:
-        type: string
-      is_correct:
-        type: boolean
-      solution_ru:
-        type: string
-      solution_uz:
-        type: string
-      text_ru:
-        type: string
-      text_uz:
-        type: string
-      updated_at:
-        type: string
-    type: object
-  domain.AnswerObj:
-    properties:
-      text_ru:
-        type: string
-      text_uz:
-        type: string
-    type: object
-  domain.AnswerParams:
-    properties:
-      is_correct:
-        type: boolean
-      question_id:
-        type: string
-      solution_ru:
-        type: string
-      solution_uz:
-        type: string
-      text_ru:
-        type: string
-      text_uz:
-        type: string
-    type: object
-  domain.CheckOneQuestion:
-    properties:
-      id:
-        type: string
-      is_correct:
-        type: boolean
-      solution_ru:
-        type: string
-      solution_uz:
-        type: string
-    type: object
-  domain.CheckOneQuestionParams:
-    properties:
-      answer_id:
-        type: string
-      question_id:
-        type: string
-      user_input:
-        type: string
-    type: object
-  domain.DifficultyEnum:
-    enum:
-    - easy
-    - medium
-    - hard
-    type: string
-    x-enum-varnames:
-    - DifficultyEnumEasy
-    - DifficultyEnumMedium
-    - DifficultyEnumHard
-  domain.GetinternResultByUserAndintern:
-    properties:
-      finished_at:
-        type: string
-      id:
-        type: string
-      started_at:
-        type: string
-      status:
-        $ref: '#/definitions/domain.NullinternStatusEnum'
-      total_points:
-        type: integer
-      total_score:
-        type: integer
-    type: object
   domain.LoginRequest:
     properties:
       email:
         type: string
-      hash_password:
+      password:
         type: string
+      phone:
+        type: string
+      user_type:
+        enum:
+        - user
+        - sysuser
+        type: string
+    required:
+    - password
+    - user_type
     type: object
-  domain.ManyAnswer:
+  domain.OTPConfirmRequest:
     properties:
-      answers:
-        items:
-          $ref: '#/definitions/domain.AnswerInfo'
-        type: array
-      count:
-        type: integer
+      code:
+        type: string
+      otp_id:
+        type: string
+    required:
+    - code
+    - otp_id
     type: object
-  domain.ManyGetinternResultByUserAndintern:
+  domain.OTPConfirmationTokenResponse:
     properties:
-      count:
-        type: integer
-      internzes_result:
-        items:
-          $ref: '#/definitions/domain.GetinternResultByUserAndintern'
-        type: array
-    type: object
-  domain.Manyinternzes:
-    properties:
-      count:
-        type: integer
-      internzes:
-        items:
-          $ref: '#/definitions/domain.intern'
-        type: array
-    type: object
-  domain.ManySelectManyQuestionsinternID:
-    properties:
-      count:
-        type: integer
-      questions:
-        items:
-          $ref: '#/definitions/domain.SelectManyQuestionsinternID'
-        type: array
-    type: object
-  domain.NullDifficultyEnum:
-    properties:
-      difficulty_enum:
-        $ref: '#/definitions/domain.DifficultyEnum'
-      valid:
-        description: Valid is true if DifficultyEnum is not NULL
-        type: boolean
-    type: object
-  domain.NullQuestionTypeEnum:
-    properties:
-      question_type_enum:
-        $ref: '#/definitions/domain.QuestionTypeEnum'
-      valid:
-        description: Valid is true if QuestionTypeEnum is not NULL
-        type: boolean
-    type: object
-  domain.NullinternStatusEnum:
-    properties:
-      intern_status_enum:
-        $ref: '#/definitions/domain.internStatusEnum'
-      valid:
-        description: Valid is true if internStatusEnum is not NULL
-        type: boolean
-    type: object
-  domain.QuestionInfo:
-    properties:
-      points:
-        type: integer
-      question_type:
-        type: string
-      tex_ru:
-        type: string
-      text_uz:
+      token:
         type: string
     type: object
-  domain.QuestionParams:
-    properties:
-      points:
-        type: integer
-      question_type:
-        $ref: '#/definitions/domain.QuestionTypeEnum'
-      intern_id:
-        type: string
-      text_ru:
-        type: string
-      text_uz:
-        type: string
-    type: object
-  domain.QuestionTypeEnum:
-    enum:
-    - multiple_choice
-    - true_false
-    - short_answer
-    type: string
-    x-enum-varnames:
-    - QuestionTypeEnumMultipleChoice
-    - QuestionTypeEnumTrueFalse
-    - QuestionTypeEnumShortAnswer
-  domain.intern:
-    properties:
-      category_ru:
-        type: string
-      category_uz:
-        type: string
-      created_at:
-        type: string
-      description_ru:
-        type: string
-      description_uz:
-        type: string
-      difficulty:
-        $ref: '#/definitions/domain.NullDifficultyEnum'
-      id:
-        type: string
-      is_active:
-        type: boolean
-      title_ru:
-        type: string
-      title_uz:
-        type: string
-      updated_at:
-        type: string
-    type: object
-  domain.internParams:
-    properties:
-      category_ru:
-        type: string
-      category_uz:
-        type: string
-      description_ru:
-        type: string
-      description_uz:
-        type: string
-      difficulty:
-        $ref: '#/definitions/domain.DifficultyEnum'
-      title_ru:
-        type: string
-      title_uz:
-        type: string
-    type: object
-  domain.internStatusEnum:
-    enum:
-    - in_progress
-    - completed
-    type: string
-    x-enum-varnames:
-    - internStatusEnumInProgress
-    - internStatusEnumCompleted
-  domain.RegisterRequest:
+  domain.OTPCreateRequest:
     properties:
       email:
         type: string
-      hash_password:
+    required:
+    - email
+    type: object
+  domain.OTPResponse:
+    properties:
+      otp_id:
         type: string
     type: object
   domain.ResponseError:
     properties:
-      error:
+      message:
         type: string
       status:
         type: integer
     type: object
   domain.ResponseSuccess:
     properties:
-      data:
-        type: string
+      data: {}
       status:
         type: integer
     type: object
-  domain.SelectManyQuestionsinternID:
+  domain.RoleCreateRequest:
     properties:
-      answers:
-        items:
-          $ref: '#/definitions/domain.AnswerObj'
-        type: array
-      id:
+      name:
         type: string
-      points:
-        type: integer
-      question_type:
-        $ref: '#/definitions/domain.NullQuestionTypeEnum'
-      intern_id:
-        type: string
-      text_ru:
-        type: string
-      text_uz:
-        type: string
+    required:
+    - name
     type: object
-  domain.SelectManyUsers:
+  domain.RoleListResponse:
     properties:
       count:
         type: integer
-      users:
+      roles:
         items:
-          $ref: '#/definitions/domain.SelectOneUser'
+          $ref: '#/definitions/domain.RoleResponse'
         type: array
     type: object
-  domain.SelectOneUser:
+  domain.RoleResponse:
     properties:
       created_at:
-        type: string
-      email:
         type: string
       id:
         type: string
       name:
         type: string
-      updated_at:
+      status:
+        type: string
+    type: object
+  domain.SignupRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      otp_confirmation_token:
+        type: string
+      password:
+        minLength: 6
+        type: string
+    required:
+    - email
+    - name
+    - otp_confirmation_token
+    - password
+    type: object
+  domain.SignupResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  domain.SysuserCreateRequest:
+    properties:
+      name:
+        type: string
+      password:
+        minLength: 6
+        type: string
+      phone:
+        type: string
+      roles:
+        items:
+          type: string
+        minItems: 1
+        type: array
+    required:
+    - name
+    - password
+    - phone
+    - roles
+    type: object
+  domain.SysuserCreateResponse:
+    properties:
+      id:
         type: string
     type: object
   domain.TokenResponse:
@@ -330,242 +143,19 @@ definitions:
       success:
         type: boolean
     type: object
-  domain.UserParams:
-    properties:
-      email:
-        type: string
-      name:
-        type: string
-    type: object
 info:
   contact: {}
   description: This API contains the source for the intern.uz app
   title: intern.UZ App
 paths:
-  /api/answer:
-    post:
-      description: Answer Create
-      parameters:
-      - description: Answer Request
-        in: body
-        name: order
-        required: true
-        schema:
-          $ref: '#/definitions/domain.AnswerParams'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.ResponseSuccess'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      summary: Answer Create
-      tags:
-      - Answer
-  /api/answer/{id}:
-    delete:
-      consumes:
-      - application/json
-      description: Answer Delete
-      parameters:
-      - example: UUID
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.ResponseSuccess'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      summary: Answer Delete
-      tags:
-      - Answer
-    get:
-      consumes:
-      - application/json
-      description: get answer
-      parameters:
-      - example: UUID
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.Answer'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      - ApiKeyAuth: []
-      summary: Get answer
-      tags:
-      - Answer
-    put:
-      consumes:
-      - application/json
-      description: Answer Update
-      parameters:
-      - description: Answer ID
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: Answer
-        in: body
-        name: answer
-        required: true
-        schema:
-          $ref: '#/definitions/domain.AnswerParams'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.ResponseSuccess'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      summary: Answer Update
-      tags:
-      - Answer
-  /api/answers/{id}:
-    get:
-      consumes:
-      - application/json
-      description: get answers
-      parameters:
-      - example: UUID
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.ManyAnswer'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      summary: Get answers
-      tags:
-      - Answer
-  /api/check/question:
+  /api/login:
     post:
       consumes:
       - application/json
-      description: intern Check Question
       parameters:
-      - description: 'intern '
+      - description: Login request
         in: body
-        name: intern
-        required: true
-        schema:
-          $ref: '#/definitions/domain.CheckOneQuestionParams'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.CheckOneQuestion'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      summary: intern Check Question
-      tags:
-      - intern Check Question
-  /api/login/user:
-    post:
-      consumes:
-      - application/json
-      description: get user   by id
-      parameters:
-      - description: User Request
-        in: body
-        name: user
+        name: login
         required: true
         schema:
           $ref: '#/definitions/domain.LoginRequest'
@@ -580,458 +170,93 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
+        "401":
+          description: Unauthorized
           schema:
             $ref: '#/definitions/domain.ResponseError'
       security:
       - ApiKeyAuth: []
-      summary: Get user  by id
-      tags:
-      - User
-  /api/question:
-    post:
-      description: Question Create
-      parameters:
-      - description: Question Request
-        in: body
-        name: question
-        required: true
-        schema:
-          $ref: '#/definitions/domain.QuestionParams'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.ResponseSuccess'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      summary: Question Create
-      tags:
-      - Question
-  /api/question/{id}:
-    delete:
-      consumes:
-      - application/json
-      description: Question Delete
-      parameters:
-      - example: UUID
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.ResponseSuccess'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      summary: Question Delete
-      tags:
-      - Question
-    put:
-      consumes:
-      - application/json
-      description: Question Update
-      parameters:
-      - example: UUID
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: Question
-        in: body
-        name: question
-        required: true
-        schema:
-          $ref: '#/definitions/domain.QuestionParams'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.ResponseSuccess'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      summary: Question Update
-      tags:
-      - Question
-  /api/questions/{id}:
-    get:
-      consumes:
-      - application/json
-      description: get questions
-      parameters:
-      - example: UUID
-        in: path
-        name: id
-        required: true
-        type: string
-      - in: query
-        name: limit
-        type: integer
-      - in: query
-        name: page
-        type: integer
-      - in: query
-        name: points
-        type: integer
-      - enum:
-        - multiple_choice
-        - true_false
-        - short_answer
-        in: query
-        name: question_type
-        type: string
-        x-enum-varnames:
-        - QuestionTypeEnumMultipleChoice
-        - QuestionTypeEnumTrueFalse
-        - QuestionTypeEnumShortAnswer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.ManySelectManyQuestionsinternID'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      summary: Get questions
-      tags:
-      - Question
-  /api/intern:
-    post:
-      description: intern Create
-      parameters:
-      - description: intern Request
-        in: body
-        name: intern
-        required: true
-        schema:
-          $ref: '#/definitions/domain.internParams'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.ResponseSuccess'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      summary: intern Create
-      tags:
-      - intern
-  /api/intern/{id}:
-    delete:
-      consumes:
-      - application/json
-      description: intern Delete
-      parameters:
-      - example: UUID
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.ResponseSuccess'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      summary: intern Delete
-      tags:
-      - intern
-    get:
-      consumes:
-      - application/json
-      description: get intern
-      parameters:
-      - example: UUID
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.intern'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      summary: Get intern
-      tags:
-      - intern
-    put:
-      consumes:
-      - application/json
-      description: intern Update
-      parameters:
-      - example: UUID
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: intern
-        in: body
-        name: intern
-        required: true
-        schema:
-          $ref: '#/definitions/domain.internParams'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.ResponseSuccess'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      summary: intern Update
-      tags:
-      - intern
-  /api/intern/{id}/completed/{intern_id}:
-    put:
-      consumes:
-      - application/json
-      description: intern Completed
-      parameters:
-      - example: UUID
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: intern ID
-        in: path
-        name: intern_id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.ResponseSuccess'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      summary: intern Completed
-      tags:
-      - intern Result
-  /api/intern/{id}/difficulty:
-    put:
-      consumes:
-      - application/json
-      description: intern Update
-      parameters:
-      - enum:
-        - easy
-        - medium
-        - hard
-        in: query
-        name: difficult
-        type: string
-        x-enum-varnames:
-        - DifficultyEnumEasy
-        - DifficultyEnumMedium
-        - DifficultyEnumHard
-      - example: UUID
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.ResponseSuccess'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      summary: intern Update
-      tags:
-      - intern
-  /api/intern/{id}/result:
-    get:
-      consumes:
-      - application/json
-      description: intern Get Result
-      parameters:
-      - example: UUID
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.ManyGetinternResultByUserAndintern'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      summary: intern Get Result
-      tags:
-      - intern Result
-  /api/intern/{id}/start:
+      summary: Login (user or sysuser)
+  /api/otp:
     post:
       consumes:
       - application/json
-      description: intern Start
+      description: Send a one-time password to the given email
       parameters:
-      - example: UUID
-        in: path
-        name: id
+      - description: OTP request
+        in: body
+        name: otp
         required: true
-        type: string
+        schema:
+          $ref: '#/definitions/domain.OTPCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.OTPResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/domain.ResponseError'
+      security:
+      - BearerAuth: []
+      summary: Send OTP
+      tags:
+      - OTP
+  /api/otp/confirm:
+    post:
+      consumes:
+      - application/json
+      description: Validate the OTP code and receive a confirmation token
+      parameters:
+      - description: OTP confirm request
+        in: body
+        name: otp
+        required: true
+        schema:
+          $ref: '#/definitions/domain.OTPConfirmRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.OTPConfirmationTokenResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ResponseError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/domain.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/domain.ResponseError'
+      security:
+      - BearerAuth: []
+      summary: Confirm OTP
+      tags:
+      - OTP
+  /api/role:
+    post:
+      consumes:
+      - application/json
+      description: Create a new role
+      parameters:
+      - description: Role Request
+        in: body
+        name: role
+        required: true
+        schema:
+          $ref: '#/definitions/domain.RoleCreateRequest'
       produces:
       - application/json
       responses:
@@ -1043,144 +268,39 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/domain.ResponseError'
       security:
-      - ApiKeyAuth: []
-      summary: intern Start
+      - BearerAuth: []
+      summary: Create Role
       tags:
-      - intern Result
-  /api/internzes:
-    get:
-      consumes:
-      - application/json
-      description: get internzes
-      parameters:
-      - enum:
-        - easy
-        - medium
-        - hard
-        in: query
-        name: difficult
-        type: string
-        x-enum-varnames:
-        - DifficultyEnumEasy
-        - DifficultyEnumMedium
-        - DifficultyEnumHard
-      - in: query
-        name: search
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.Manyinternzes'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      summary: Get internzes
-      tags:
-      - intern
-  /api/register/user:
-    post:
-      description: User Create
-      parameters:
-      - description: User Request
-        in: body
-        name: user
-        required: true
-        schema:
-          $ref: '#/definitions/domain.RegisterRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.TokenResponse'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      summary: User Create
-      tags:
-      - User
-  /api/user:
-    get:
-      consumes:
-      - application/json
-      description: get user  by id
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.SelectOneUser'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-      security:
-      - ApiKeyAuth: []
-      summary: Get user  by id
-      tags:
-      - User
+      - Role
+  /api/role/{id}:
     put:
       consumes:
       - application/json
-      description: User Update
+      description: Update an existing role's name
       parameters:
-      - description: User Request
+      - description: Role ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Role Request
         in: body
-        name: user
+        name: role
         required: true
         schema:
-          $ref: '#/definitions/domain.UserParams'
+          $ref: '#/definitions/domain.RoleCreateRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/domain.ResponseError'
+            $ref: '#/definitions/domain.ResponseSuccess'
         "400":
           description: Bad Request
           schema:
@@ -1195,33 +315,21 @@ paths:
             $ref: '#/definitions/domain.ResponseError'
       security:
       - BearerAuth: []
-      summary: User Update
+      summary: Update Role
       tags:
-      - User
-  /api/user/{id}:
-    delete:
-      consumes:
-      - application/json
-      description: User Delete
-      parameters:
-      - example: UUID
-        in: path
-        name: id
-        required: true
-        type: string
+      - Role
+  /api/roles:
+    get:
+      description: Get all active roles
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            type: string
+            $ref: '#/definitions/domain.RoleListResponse'
         "400":
           description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
           schema:
             $ref: '#/definitions/domain.ResponseError'
         "500":
@@ -1230,37 +338,69 @@ paths:
             $ref: '#/definitions/domain.ResponseError'
       security:
       - BearerAuth: []
-      summary: User Delete
+      summary: List Roles
       tags:
-      - User
-  /api/users:
-    get:
+      - Role
+  /api/signup:
+    post:
       consumes:
       - application/json
-      description: get all admins
       parameters:
-      - in: query
-        name: limit
-        type: integer
-      - in: query
-        name: page
-        type: integer
-      - in: query
-        name: search
-        type: string
+      - description: Signup request
+        in: body
+        name: signup
+        required: true
+        schema:
+          $ref: '#/definitions/domain.SignupRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/domain.SelectManyUsers'
+            $ref: '#/definitions/domain.SignupResponse'
         "400":
           description: Bad Request
           schema:
             $ref: '#/definitions/domain.ResponseError'
-        "404":
-          description: Not Found
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/domain.ResponseError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/domain.ResponseError'
+      security:
+      - BearerAuth: []
+      summary: Signup (after OTP confirmation)
+      tags:
+      - Auth
+  /api/sysuser:
+    post:
+      consumes:
+      - application/json
+      description: Create a new system user with roles
+      parameters:
+      - description: Sysuser Request
+        in: body
+        name: sysuser
+        required: true
+        schema:
+          $ref: '#/definitions/domain.SysuserCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.SysuserCreateResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ResponseError'
+        "409":
+          description: Sysuser already exists or role not found
           schema:
             $ref: '#/definitions/domain.ResponseError'
         "500":
@@ -1268,10 +408,10 @@ paths:
           schema:
             $ref: '#/definitions/domain.ResponseError'
       security:
-      - ApiKeyAuth: []
-      summary: Get all admins
+      - BearerAuth: []
+      summary: Create Sysuser
       tags:
-      - User
+      - Sysuser
 securityDefinitions:
   ApiKeyAuth:
     in: header
